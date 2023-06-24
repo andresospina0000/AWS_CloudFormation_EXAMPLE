@@ -117,6 +117,9 @@ Resources:
     Type: 'AWS::EC2::VPC'
     Properties:
       CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: VPCEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: a27c85ab-f34b-4397-a21a-f1ddda058811
@@ -126,6 +129,9 @@ Resources:
       VpcId: !Ref VPCEJ3
       CidrBlock: 10.0.2.0/23
       AvailabilityZone: us-east-1c
+      Tags:
+        - Key: Name
+          Value: PRIVATESNEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 7eeb4718-7f34-46c6-befb-41c110d981e2
@@ -138,6 +144,9 @@ Resources:
       CidrBlock: 10.0.0.0/24
       AvailabilityZone: us-east-1c
       MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PUBLICSNEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: a2701de6-ab54-423d-a960-af8790aae539
@@ -145,7 +154,10 @@ Resources:
       - VPCEJ3
   INTERNETGATEWAYEJ3:
     Type: 'AWS::EC2::InternetGateway'
-    Properties: {}
+    Properties: 
+      Tags:
+        - Key: Name
+          Value: INTERNETGATEWAYEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: cc8a524d-3d97-4dc6-a0d8-774c2b113efc
@@ -155,6 +167,9 @@ Resources:
     Type: 'AWS::EC2::RouteTable'
     Properties:
       VpcId: !Ref VPCEJ3
+      Tags:
+        - Key: Name
+          Value: PRIVATERTABLEEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: ca488c8b-aadc-45da-98ab-0770cf245fef
@@ -164,6 +179,9 @@ Resources:
     Type: 'AWS::EC2::RouteTable'
     Properties:
       VpcId: !Ref VPCEJ3
+      Tags:
+        - Key: Name
+          Value: PUBLICRTABLEEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 3380b6f6-567c-48b4-a54d-6e2060ed6241
@@ -195,6 +213,9 @@ Resources:
     Properties:
       GroupDescription: App server security group
       VpcId: !Ref VPCEJ3
+      Tags:
+        - Key: Name
+          Value: APPSERVERSGEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 298d524c-196e-447c-83e5-dbc76f9bb602
@@ -205,6 +226,9 @@ Resources:
     Properties:
       GroupDescription: Database instance security group
       VpcId: !Ref VPCEJ3
+      Tags:
+        - Key: Name
+          Value: DBSGEJ3
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 5bc22a8c-d8a9-4af6-84f8-49073c69c984
