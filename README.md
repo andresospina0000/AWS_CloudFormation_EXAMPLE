@@ -1,5 +1,5 @@
-# CloudFormation Example
-CloudFormation exercise: infrastructure as code.
+# AWS CloudFormation Example
+AWS CloudFormation exercise: infrastructure as code.
 
 With this template I'm trying to create a whole infrastructure compose by:
 
@@ -11,7 +11,7 @@ With this template I'm trying to create a whole infrastructure compose by:
 *Security groups to limit access to SSH (:22) and HTTP (:80)
 *Amazon Linux EC2 instance to simulate an app server instance.
 
-To run the attached template please go to the CloudFormation Designer:
+To run the attached template please go to the AWS CloudFormation Designer:
 
 https://us-east-1.console.aws.amazon.com/cloudformation/designer/home?region=us-east-1
 
