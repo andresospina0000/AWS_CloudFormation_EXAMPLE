@@ -1,4 +1,4 @@
-# CloudFormation_EXAMPLE
+# CloudFormation Example
 CloudFormation exercise: infrastructure as code.
 
 With this template I'm trying to create a whole infrastructure compose by:
