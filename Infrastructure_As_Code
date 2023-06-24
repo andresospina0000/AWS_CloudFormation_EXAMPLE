@@ -106,6 +106,12 @@ Metadata:
       embeds: []
       iscontainedinside:
         - a27c85ab-f34b-4397-a21a-f1ddda058811
+    3eabc811-330f-4154-bcf5-dc383b5ccfdb:
+      source:
+        id: a27c85ab-f34b-4397-a21a-f1ddda058811
+      target:
+        id: cc8a524d-3d97-4dc6-a0d8-774c2b113efc
+      z: 0
 Resources:
   VPCEJ3:
     Type: 'AWS::EC2::VPC'
@@ -203,7 +209,26 @@ Resources:
       'AWS::CloudFormation::Designer':
         id: 5bc22a8c-d8a9-4af6-84f8-49073c69c984
   GATEWAYATCHMNT:
-   Type: 'AWS::EC2::VPCGatewayAttachment'
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      InternetGatewayId: !Ref INTERNETGATEWAYEJ3
+      VpcId: !Ref VPCEJ3
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3eabc811-330f-4154-bcf5-dc383b5ccfdb
+  IRSSHAPPSERVERSGEJ3:
+   Type: 'AWS::EC2::SecurityGroupIngress'
    Properties:
-    InternetGatewayId: !Ref INTERNETGATEWAYEJ3
-    VpcId: !Ref VPCEJ3
+    Description: Trafico SSH desde cualquier IPv4
+    IpProtocol: tcp
+    GroupId: !Ref APPSERVERSGEJ3
+    ToPort: 22
+    FromPort: 0
+  IRHTTPAPPSERVERSGEJ3:
+   Type: 'AWS::EC2::SecurityGroupIngress'
+   Properties:
+    Description: Trafico HTTP desde cualquier IPv4
+    IpProtocol: tcp
+    GroupId: !Ref APPSERVERSGEJ3
+    ToPort: 80
+    FromPort: 0
