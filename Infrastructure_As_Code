@@ -33,6 +33,8 @@ Metadata:
       z: 1
       parent: a27c85ab-f34b-4397-a21a-f1ddda058811
       embeds:
+        - 41ce5b4b-4c65-42a9-9efe-26a98cb21e98
+        - 2d9fde94-86b8-427d-b58d-4b428ccbec66
         - 3380b6f6-567c-48b4-a54d-6e2060ed6241
     cc8a524d-3d97-4dc6-a0d8-774c2b113efc:
       size:
@@ -112,6 +114,35 @@ Metadata:
       target:
         id: cc8a524d-3d97-4dc6-a0d8-774c2b113efc
       z: 0
+    41ce5b4b-4c65-42a9-9efe-26a98cb21e98:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -640
+        'y': 200
+      z: 2
+      parent: a2701de6-ab54-423d-a960-af8790aae539
+      embeds: []
+      iscontainedinside:
+        - a2701de6-ab54-423d-a960-af8790aae539
+        - a2701de6-ab54-423d-a960-af8790aae539
+        - a2701de6-ab54-423d-a960-af8790aae539
+        - a2701de6-ab54-423d-a960-af8790aae539
+      dependson:
+        - 298d524c-196e-447c-83e5-dbc76f9bb602
+    2d9fde94-86b8-427d-b58d-4b428ccbec66:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -576.0788393599654
+        'y': 267.0472074437692
+      z: 2
+      parent: a2701de6-ab54-423d-a960-af8790aae539
+      embeds: []
+      dependson:
+        - 41ce5b4b-4c65-42a9-9efe-26a98cb21e98
 Resources:
   VPCEJ3:
     Type: 'AWS::EC2::VPC'
@@ -241,18 +272,44 @@ Resources:
       'AWS::CloudFormation::Designer':
         id: 3eabc811-330f-4154-bcf5-dc383b5ccfdb
   IRSSHAPPSERVERSGEJ3:
-   Type: 'AWS::EC2::SecurityGroupIngress'
-   Properties:
-    Description: Trafico SSH desde cualquier IPv4
-    IpProtocol: tcp
-    GroupId: !Ref APPSERVERSGEJ3
-    ToPort: 22
-    FromPort: 0
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      Description: Trafico SSH desde cualquier IPv4
+      IpProtocol: tcp
+      GroupId: !Ref APPSERVERSGEJ3
+      ToPort: 22
+      FromPort: 0
   IRHTTPAPPSERVERSGEJ3:
-   Type: 'AWS::EC2::SecurityGroupIngress'
-   Properties:
-    Description: Trafico HTTP desde cualquier IPv4
-    IpProtocol: tcp
-    GroupId: !Ref APPSERVERSGEJ3
-    ToPort: 80
-    FromPort: 0
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      Description: Trafico HTTP desde cualquier IPv4
+      IpProtocol: tcp
+      GroupId: !Ref APPSERVERSGEJ3
+      ToPort: 80
+      FromPort: 0
+  APPSERVEREJ3:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-022e1a32d3f742bd8
+      InstanceType: t2.micro
+      SubnetId: !Ref PUBLICSNEJ3
+      KeyName: !Ref APPSERVEREJ3KEY
+      Tags:
+        - Key: Name
+          Value: APPSERVEREJ3
+      SecurityGroupIds:
+        - !Ref APPSERVERSGEJ3
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 41ce5b4b-4c65-42a9-9efe-26a98cb21e98
+    DependsOn:
+      - APPSERVERSGEJ3
+  APPSERVEREJ3KEY:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: APPSERVEREJ3KEY
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 2d9fde94-86b8-427d-b58d-4b428ccbec66
+    DependsOn:
+      - APPSERVERSGEJ3
