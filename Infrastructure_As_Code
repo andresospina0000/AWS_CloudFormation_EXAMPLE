@@ -293,7 +293,23 @@ Resources:
       ImageId: ami-022e1a32d3f742bd8
       InstanceType: t2.micro
       SubnetId: !Ref PUBLICSNEJ3
-      KeyName: !Ref APPSERVEREJ3KEY
+      KeyName: !Ref APPSERVERJ3KEY
+      UserData:
+        Fn::Base64: !Sub
+            #!/bin/bash
+            yum -y install httpd php mysql php-mysql
+            case $(ps -p 1 -o comm | tail -1) in
+            systemd) systemctl enable --now httpd ;;
+            init) chkconfig httpd on; service httpd start ;;
+            *) echo "Error starting httpd (OS not using init or systemd)." 2>&1
+            esac
+            if [ ! -f /var/www/html/bootcamp-app.tar.gz ]; then
+            cd /var/www/html
+            wget https://s3.amazonaws.com/immersionday-labs/bootcamp-app.tar
+            tar xvf bootcamp-app.tar
+            chown apache:root /var/www/html/rds.conf.php
+            fi
+            yum -y update
       Tags:
         - Key: Name
           Value: APPSERVEREJ3
@@ -304,10 +320,10 @@ Resources:
         id: 41ce5b4b-4c65-42a9-9efe-26a98cb21e98
     DependsOn:
       - APPSERVERSGEJ3
-  APPSERVEREJ3KEY:
+  APPSERVERJ3KEY:
     Type: 'AWS::EC2::KeyPair'
     Properties:
-      KeyName: APPSERVEREJ3KEY
+      KeyName: APPSERVERJ3KEY
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 2d9fde94-86b8-427d-b58d-4b428ccbec66
